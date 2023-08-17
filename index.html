@@ -1,13 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="./aseets/styles/style.css">
     <link rel="shortcut icon" href="./aseets/images/favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./aseets/styles/style.css">
 </head>
+
 <body>
-    
+    <header>
+        <div >
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <a href="#" class="navbar-brand">
+                        <img src="./aseets/images/amazing_brand.png" height="28" alt="logo amazing_brand">
+                    </a>
+                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
+                        data-bs-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse menus" id="navbarCollapse">
+                        <div class="navbar-nav">
+                            <a href="./index.html" class="nav-item nav-link  actual ">Home</a>
+                            <a href="./aseets/pages/upcoming-events.html" class="nav-item nav-link active ">Upcoming Events</a>
+                            <a href="./aseets/pages/past-events.html" class="nav-item nav-link active ">Past Events</a>
+                            <a href="./aseets/pages/contact.html" class="nav-item nav-link active ">Contact </a>
+                            <a href="./aseets/pages/stats.html" class="nav-item nav-link active ">Stats</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div>
+            <div id="carouselExample" class="carousel slide">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="./aseets/images/optional_banner_1.jpg" class=" imgcarrusel d-block w-100"  alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="./aseets/images/optional_banner_2.jpg" class="imgcarrusel d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="./aseets/images/optional_banner_3.jpg" class="imgcarrusel d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="./aseets/images/optional_banner_4.jpg" class="imgcarrusel d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="./aseets/images/optional_banner_5.jpg" class="imgcarrusel d-block w-100" alt="...">
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col d-flex">
+                    <div class="card" style="width: 18rem;">
+                        <img src="./aseets/images/books.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Book Fair</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+
+                    <div class="card" style="width: 18rem;">
+                        <img src="./aseets/images/cinema.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Cinema</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+
+                    <div class="card" style="width: 18rem;">
+                        <img src="./aseets/images/costume_party.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Contume Party</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+
+                    <div class="card" style="width: 18rem;">
+                        <img src="./aseets/images/marathon.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Maraton</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+
+    <footer class="d-flex"  >
+
+        <div class="container p-1 pb-0">
+
+            <section class="sectfooter" >
+                <a class="btn text-white btn-floating m-1" href="https://www.facebook.com/" target="_blank"
+                    role="button"> <img class="icoredes" src="./aseets/images/facebookico.ico" alt=""> </a>
+
+                <a class="btn text-white btn-floating m-1" href="https://web.whatsapp.com/%F0%9F%8C%90/es "
+                    target="_blank" role="button"> <img class="icoredes" src="./aseets/images/whatsappico.ico" alt="">
+                </a>
+
+                <a class="btn text-white btn-floating m-1" href="https://www.instagram.com/" target="_blank"
+                    role="button"> <img class="icoredes" src="./aseets/images/instagramico.ico" alt=""> </a>
+            </section>
+
+           <h4 class="hfooter">COHORT</h4>
+
+        </div>
+
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

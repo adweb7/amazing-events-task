@@ -1,13 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ucoming Events</title>
-    <link rel="stylesheet" href="../styles/style.css">
-    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ucoming Events</title>
+  <link rel="stylesheet" href="../styles/style.css">
+  <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
-    
+  <header>
+    <div>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a href="#" class="navbar-brand">
+            <img src="../images/amazing_brand.png" height="28" alt="logo amazing_brand">
+          </a>
+          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse menus" id="navbarCollapse">
+            <div class="navbar-nav">
+              <a href="../../index.html" class="nav-item nav-link active">Home</a>
+              <a href="#" class="nav-item nav-link actual ">Upcoming Events</a>
+              <a href="../pages/past-events.html" class="nav-item nav-link active">Past Events</a>
+              <a href="../pages/contact.html" class="nav-item nav-link active">Contact </a>
+              <a href="../pages/stats.html" class="nav-item nav-link active">Stats</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <div>
+      <div id="carouselExample" class="carousel slide">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="../images/optional_banner_1.jpg" class=" imgcarrusel d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="../images/optional_banner_2.jpg" class="imgcarrusel d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="../images/optional_banner_3.jpg" class="imgcarrusel d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="../images/optional_banner_4.jpg" class="imgcarrusel d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="../images/optional_banner_5.jpg" class="imgcarrusel d-block w-100" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+
+    <div>
+      <form action="#" method="get">
+        <label for="category1">Category</label>
+        <input type="checkbox" id="category1" name="Posicion" value="Forward">
+        <label for="category2">Category</label>
+        <input type="checkbox" id="category2" name="Posicion" value="Defense">
+        <label for="category3">Category</label>
+        <input type="checkbox" id="category3" name="Posicion" value="Midfield">
+        <label for="category4">Category</label>
+        <input type="checkbox" id="category4" name="Posicion" value="Goalkeeper">
+        <label for="category5">Category</label>
+        <input type="checkbox" id="category5" name="Posicion" value="Goalkeeper">
+        
+        <div class="container-4">
+          <input type="search" id="search" placeholder="" />
+          <button class="icon"> <img class="lupabuscador" src="../images/lupa.ico" alt=""></button>
+        </div>
+
+      </form>
+    </div>
+
+  </main>
+
+  <footer class="d-flex">
+
+    <div class="container p-1 pb-0">
+
+      <section class="sectfooter">
+        <a class="btn text-white btn-floating m-1" href="https://www.facebook.com/" target="_blank" role="button"> <img
+            class="icoredes" src="../images/facebookico.ico" alt=""> </a>
+
+        <a class="btn text-white btn-floating m-1" href="https://web.whatsapp.com/%F0%9F%8C%90/es " target="_blank"
+          role="button"> <img class="icoredes" src="../images/whatsappico.ico" alt="">
+        </a>
+
+        <a class="btn text-white btn-floating m-1" href="https://www.instagram.com/" target="_blank" role="button"> <img
+            class="icoredes" src="../images/instagramico.ico" alt=""> </a>
+      </section>
+
+      <h4 class="hfooter">COHORT</h4>
+
+    </div>
+
+  </footer>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

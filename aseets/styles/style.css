@@ -5,3 +5,72 @@
     box-sizing: border-box;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+/*EN TODAS LAS PAGINAS*/
+
+.menus {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.actual{
+    color: crimson !important;
+}
+footer {
+    background-color: crimson;
+}
+
+.icoredes {
+    max-width: 5vh;
+}
+
+.imgcarrusel {
+    max-height: 17rem;
+    object-fit: cover;
+}
+
+.hfooter, .sectfooter{
+    display: inline;
+}
+
+.hfooter{
+    color: white;
+    text-align: center;
+    font-size:medium;
+    margin-left: 70%;
+}
+
+/* HOME - UE - PE */
+
+.lupabuscador{
+    height: 0.9rem;
+    width: 0.9rem;
+
+}
+.card {
+    padding: 2rem;
+}
+
+
+/*STATS*/
+th {
+    background-color: darkgray;
+
+}
+
+table,
+th,
+td {
+    border: 1px solid black !important;
+    border-collapse: collapse;
+}
+
+/*CONTACT*/
+form {
+    margin: 5rem 0rem;
+    max-width: 30rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    left: 30rem;
+}
