@@ -8,16 +8,43 @@
 
 /*EN TODAS LAS PAGINAS*/
 
+.navfondo {
+    background-color: black;
+}
+
+.anav {
+    color: white !important;
+}
+
+.navbar-toggler{
+    background-color: white !important;
+
+}
+
+h1 {
+    display: inline;
+    z-index: 1;
+    color: white;
+    -webkit-text-stroke: 1px rgb(217, 3, 104);
+    /* background-image: linear-gradient(180deg, #2af598 0%, #009efd 100%); */
+    /* background-image: linear-gradient(315deg, #000000 0%, #414141 74%); */
+    background-color: black;
+    position: relative;
+    top: 5rem;
+    left: 45%;
+}
+
 .menus {
     display: flex;
     justify-content: flex-end;
 }
 
-.actual{
-    color: crimson !important;
+.actual {
+    color: #d90368 !important;
 }
+
 footer {
-    background-color: crimson;
+    background-color: #d90368;
 }
 
 .icoredes {
@@ -29,24 +56,46 @@ footer {
     object-fit: cover;
 }
 
-.hfooter, .sectfooter{
+.hfooter,
+.sectfooter {
     display: inline;
 }
 
-.hfooter{
-    color: white;
+.hfooter {
+    color: black;
     text-align: center;
-    font-size:medium;
+    font-size: medium;
     margin-left: 70%;
 }
 
 /* HOME - UE - PE */
 
-.lupabuscador{
+.divcategorias {
+    margin: 3rem;
+}
+
+.formcategorias {
+    margin-left: 6rem;
+}
+
+label {
+    padding-left: 0.6rem;
+}
+
+
+.divlupa {
+    display: inline;
+    position: relative;
+    left: 15%;
+}
+
+
+.lupabuscador {
     height: 0.9rem;
     width: 0.9rem;
 
 }
+
 .card {
     padding: 2rem;
 }
@@ -65,8 +114,9 @@ td {
     border-collapse: collapse;
 }
 
+
 /*CONTACT*/
-form {
+.formcontact {
     margin: 5rem 0rem;
     max-width: 30rem;
     display: flex;

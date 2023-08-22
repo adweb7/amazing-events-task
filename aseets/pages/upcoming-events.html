@@ -13,7 +13,7 @@
 <body>
   <header>
     <div>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav class="navbar navbar-expand-lg navbar-light navfondo">
         <div class="container-fluid">
           <a href="#" class="navbar-brand">
             <img src="../images/amazing_brand.png" height="28" alt="logo amazing_brand">
@@ -23,11 +23,11 @@
           </button>
           <div class="collapse navbar-collapse menus" id="navbarCollapse">
             <div class="navbar-nav">
-              <a href="../../index.html" class="nav-item nav-link active">Home</a>
+              <a href="../../index.html" class="nav-item nav-link anav">Home</a>
               <a href="#" class="nav-item nav-link actual ">Upcoming Events</a>
-              <a href="../pages/past-events.html" class="nav-item nav-link active">Past Events</a>
-              <a href="../pages/contact.html" class="nav-item nav-link active">Contact </a>
-              <a href="../pages/stats.html" class="nav-item nav-link active">Stats</a>
+              <a href="../pages/past-events.html" class="nav-item nav-link anav">Past Events</a>
+              <a href="../pages/contact.html" class="nav-item nav-link anav">Contact </a>
+              <a href="../pages/stats.html" class="nav-item nav-link anav">Stats</a>
             </div>
           </div>
         </div>
@@ -36,7 +36,7 @@
   </header>
 
   <main>
-
+    <h1>UPCOMING EVENTS</h1>
     <div>
       <div id="carouselExample" class="carousel slide">
         <div class="carousel-inner">
@@ -67,25 +67,72 @@
       </div>
     </div>
 
-    <div>
-      <form action="#" method="get">
+    <div class="divcategorias">
+      <form class="form-check formcategorias" action="#" method="get">
+
+        <input type="checkbox" id="category1" name="categoria" value="category1">
         <label for="category1">Category</label>
-        <input type="checkbox" id="category1" name="Posicion" value="Forward">
+        <input type="checkbox" id="category2" name="categoria" value="category2">
         <label for="category2">Category</label>
-        <input type="checkbox" id="category2" name="Posicion" value="Defense">
+        <input type="checkbox" id="category3" name="categoria" value="category3">
         <label for="category3">Category</label>
-        <input type="checkbox" id="category3" name="Posicion" value="Midfield">
+        <input type="checkbox" id="category4" name="categoria" value="category4">
         <label for="category4">Category</label>
-        <input type="checkbox" id="category4" name="Posicion" value="Goalkeeper">
+        <input type="checkbox" id="category5" name="categoria" value="category5">
         <label for="category5">Category</label>
-        <input type="checkbox" id="category5" name="Posicion" value="Goalkeeper">
-        
-        <div class="container-4">
-          <input type="search" id="search" placeholder="" />
-          <button class="icon"> <img class="lupabuscador" src="../images/lupa.ico" alt=""></button>
+
+        <div class="divlupa">
+          <input class="" type="search" id="search" placeholder="">
+          <button class="icon"> <img class="lupabuscador" src="../images/lupa.ico" alt="lupa"></button>
         </div>
 
       </form>
+    </div>
+
+    <div class="container mb-5">
+      <div class="row">
+        <div class="col d-flex">
+          <div class="card" style="width: 18rem;">
+            <img src="../images/books.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Book Fair</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+
+          <div class="card" style="width: 18rem;">
+            <img src="../images/cinema.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Cinema</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+
+          <div class="card" style="width: 18rem;">
+            <img src="../images/costume_party.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Contume Party</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+
+          <div class="card" style="width: 18rem;">
+            <img src="../images/marathon.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Maraton</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
   </main>
@@ -94,7 +141,7 @@
 
     <div class="container p-1 pb-0">
 
-      <section class="sectfooter">
+      <div class="sectfooter">
         <a class="btn text-white btn-floating m-1" href="https://www.facebook.com/" target="_blank" role="button"> <img
             class="icoredes" src="../images/facebookico.ico" alt=""> </a>
 
@@ -104,7 +151,7 @@
 
         <a class="btn text-white btn-floating m-1" href="https://www.instagram.com/" target="_blank" role="button"> <img
             class="icoredes" src="../images/instagramico.ico" alt=""> </a>
-      </section>
+      </div>
 
       <h4 class="hfooter">COHORT</h4>
 
