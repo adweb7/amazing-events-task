@@ -31,6 +31,21 @@ categoriasFiltradas.forEach(elemento => {
     }
 });
 
+// CONDICION DE CARD EVENTOS SEGUN PAGINA
+
+if (document.title === "Home") {
+    crearEventos(data.events);
+} else if (document.title === "Upcoming Events") {
+    crearEventos(eventosProximos)
+} else if (document.title === "Past Events") {
+    crearEventos(eventosPasados)
+} else if (document.title === "Details") {
+    const consultaString = location.search
+    const paramentros = new URLSearchParams(consultaString)
+    const id = paramentros.get("_id")
+    let arregloFiltradoDeDetalles = data.events.filter((evento) => evento._id)
+    crearTarjetaDetalles(arregloFiltradoDeDetalles[0])
+}
 
 //FUNCION PARA TARJETAS DE EVENTOS
 
@@ -46,14 +61,14 @@ function crearEventos(arrayEvents) {
         <div class="card-body">
             <h5 class="card-title">${events.name}</h5>
             <p class="card-text">${events.description}</p>
-            <a href="./aseets/pages/details.html?id=${events._id}" class="btn btn-primary">Details</a>
+            <a href="./aseets/pages/details.html?_id=${events._id}" class="btn btn-primary">Details</a>
         </div>
     </div>
         `;
     }
 
 
-    
+
     cardsData.innerHTML = tarjetasEventos;
 }
 
@@ -84,9 +99,7 @@ createCategoryCards(categoriasRepetidasEliminadas);
 
 function crearTarjetaDetalles(events) {
     let dataDetalles = document.getElementById("contenedorDetalles")
-    let tarjetaDetalles = ""
-    dataDetalles.innerHTML = tarjetaDetalles
-    return `<div class="card mb-3" style="max-width: 540px;">
+    let tarjetaDetalles = `<div class="card mb-3" style="max-width: 540px;">
                 <div class="row g-0">
                 <div class="col-md-4">
                     <img src="${events.image}" class="img-fluid rounded-start" alt="...">
@@ -104,25 +117,12 @@ function crearTarjetaDetalles(events) {
                 </div>
             </div>`
 
-    
+    dataDetalles.innerHTML = tarjetaDetalles
+
 }
 
 
-// CONDICION DE CARD EVENTOS SEGUN PAGINA
 
-if (document.title === "Home") {
-    crearEventos(data.events);
-} else if (document.title === "Upcoming Events") {
-    crearEventos(eventosProximos)
-} else if (document.title === "Past Events") {
-    crearEventos(eventosPasados)
-} else if (document.title === "Details" ){
-    const consultaString = location.search
-    const paramentros = new URLSearchParams (consultaString)
-    const id = paramentros.get("_id")
-    let arregloFiltradoDeDetalles = events.filter((evento)=> evento.id)
-    crearTarjetaDetalles(arregloFiltradoDeDetalles[0])
-}
 
 
 
@@ -131,25 +131,44 @@ if (document.title === "Home") {
 
 const buscador = document.getElementById("buscador");
 
-buscador.addEventListener("keydown", function() {
+buscador.addEventListener("keydown", function () {
     filtrarPorTexto(data.events)
 });
 
-function filtrarPorTexto( arrayDeEventos){
-    let datosIngresadosEnElBuscador = buscador.value;
-    let arregloFiltrado = arrayDeEventos.filter(arrayDeEventos => arrayDeEventos.name.toLowerCase().includes(datosIngresadosEnElBuscador.trim().toLowerCase()) )
-    return arregloFiltrado
-}
+// function filtrarPorTexto(arrayDeEventos) {
+//     let datosIngresadosEnElBuscador = buscador.value;
+//     let arregloFiltrado = arrayDeEventos.filter(arrayDeEventos => arrayDeEventos.name.toLowerCase().includes(datosIngresadosEnElBuscador.trim().toLowerCase()))
+//     return arregloFiltrado
+// }
 
 
 const inputDeCategorias = document.getElementById("categoriaInput")
 
-inputDeCategorias.addEventListener("input", function(){
-    let datosClickeadosPorElUsuario = inputDeCategorias.value
-    return datosClickeadosPorElUsuario
+inputDeCategorias.addEventListener("click", ()=> {
+    let filtroCategorias = filtrarCategoriasClickeadas(data.events)
+    crearEventos(filtroCategorias)
 })
 
 
+
+function filtrarCategoriasClickeadas(arrayDeEventos) {
+    let checkboxes = document.querySelectorAll('input[type="checkbox"]')
+    let arrayCheckboxes = Array.from(checkboxes).filter(checkbox => checkbox.checked)
+    let arrayValueChecked = arrayCheckboxes.map(entrada => entrada.value)
+    let arregloFiltrados = []
+    arrayDeEventos.filter(evento => {
+        arrayValueChecked.forEach(categoria => {
+            if (categoria === evento.category) {
+                arregloFiltrados.push(evento)
+            }
+        })
+    })
+    if (!arregloFiltrados.length) {
+        arregloFiltrados = arrayDeEventos
+    }
+    console.log(arregloFiltrados);
+    return arregloFiltrados
+}
 
 
 // EVENTOS Y FORMULARIO
