@@ -1,4 +1,6 @@
 
+
+
 // VARIABLES PARA FILTRO DE EVENTOS Y DATE
 
 let fechaActual = new Date(data.currentDate);
@@ -32,19 +34,48 @@ categoriasFiltradas.forEach(elemento => {
 });
 
 // CONDICION DE CARD EVENTOS SEGUN PAGINA
+const buscador = document.getElementById("buscador");
+const inputDeCategorias = document.getElementById("contenedor-categorias")
+
 
 if (document.title === "Home") {
     crearEventos(data.events);
+    createCategoryCards(categoriasRepetidasEliminadas);
+    buscador.addEventListener("keydown", function () {
+        filtrarPorCategoriasYTexto(data.events)
+    
+    });
+    inputDeCategorias.addEventListener("click", ()=> {
+        filtrarPorCategoriasYTexto(data.events)
+    })
+    
 } else if (document.title === "Upcoming Events") {
     crearEventos(eventosProximos)
+    createCategoryCards(categoriasRepetidasEliminadas);
+    buscador.addEventListener("keydown", function () {
+        filtrarPorCategoriasYTexto(eventosProximos)
+    
+    });
+    inputDeCategorias.addEventListener("click", ()=> {
+        filtrarPorCategoriasYTexto(eventosProximos)
+    })
 } else if (document.title === "Past Events") {
     crearEventos(eventosPasados)
+    createCategoryCards(categoriasRepetidasEliminadas);
+    buscador.addEventListener("keydown", function () {
+        filtrarPorCategoriasYTexto(eventosPasados)
+    
+    });
+    inputDeCategorias.addEventListener("click", ()=> {
+        filtrarPorCategoriasYTexto(eventosPasados)
+    })
 } else if (document.title === "Details") {
     const consultaString = location.search
     const paramentros = new URLSearchParams(consultaString)
     const id = paramentros.get("_id")
-    let arregloFiltradoDeDetalles = data.events.filter((evento) => evento._id)
-    crearTarjetaDetalles(arregloFiltradoDeDetalles[0])
+    let arregloFiltradoDeDetalles = data.events.find((evento) => evento._id == id)
+    crearTarjetaDetalles(arregloFiltradoDeDetalles)
+    
 }
 
 //FUNCION PARA TARJETAS DE EVENTOS
@@ -61,7 +92,7 @@ function crearEventos(arrayEvents) {
         <div class="card-body">
             <h5 class="card-title">${events.name}</h5>
             <p class="card-text">${events.description}</p>
-            <a href="./aseets/pages/details.html?_id=${events._id}" class="btn btn-primary">Details</a>
+            <a href="/aseets/pages/details.html?_id=${events._id}" class="btn btn-primary">Details</a>
         </div>
     </div>
         `;
@@ -79,37 +110,34 @@ function createCategoryCards(categoriasRepetidasEliminadas) {
 
     for (let category of categoriasRepetidasEliminadas) {
         tarjetasCategorias += `
-        <div class="divcategorias  d-inline-block">
-            <form class="form-check formcategorias" action="#" method="get">
-                <input type="checkbox" id="categoriaInput" name="${category}" value="${category}">
+                <input type="checkbox" id="${category}" name="${category}" value="${category}">
                 <label for="${category}">${category}</label>
-            </form>
-        </div>
+           
         `;
     }
 
     cardsDataCategories.innerHTML = tarjetasCategorias;
 }
 
-createCategoryCards(categoriasRepetidasEliminadas);
+
 
 
 // FUNCION PARA DETAILS TARJETA
 
 
-function crearTarjetaDetalles(events) {
+function crearTarjetaDetalles(event) {
     let dataDetalles = document.getElementById("contenedorDetalles")
     let tarjetaDetalles = `<div class="card mb-3" style="max-width: 540px;">
                 <div class="row g-0">
                 <div class="col-md-4">
-                    <img src="${events.image}" class="img-fluid rounded-start" alt="...">
+                    <img src="${event.image}" class="img-fluid rounded-start" alt="...">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                    <h5 class="card-title">${events.name}</h5>
-                    <p class="card-text">${events.date}</p>
-                    <p class="card-text">${events.category}</p>
-                    <p class="card-text">${events.place}</p>
+                    <h5 class="card-title">${event.name}</h5>
+                    <p class="card-text">${event.date}</p>
+                    <p class="card-text">${event.category}</p>
+                    <p class="card-text">${event.place}</p>
                     </div>
 
                     </div>
@@ -129,25 +157,23 @@ function crearTarjetaDetalles(events) {
 // EVENTOS
 
 
-const buscador = document.getElementById("buscador");
-
-buscador.addEventListener("keydown", function () {
-    filtrarPorTexto(data.events)
-});
-
-// function filtrarPorTexto(arrayDeEventos) {
-//     let datosIngresadosEnElBuscador = buscador.value;
-//     let arregloFiltrado = arrayDeEventos.filter(arrayDeEventos => arrayDeEventos.name.toLowerCase().includes(datosIngresadosEnElBuscador.trim().toLowerCase()))
-//     return arregloFiltrado
-// }
 
 
-const inputDeCategorias = document.getElementById("categoriaInput")
 
-inputDeCategorias.addEventListener("click", ()=> {
-    let filtroCategorias = filtrarCategoriasClickeadas(data.events)
-    crearEventos(filtroCategorias)
-})
+
+function filtrarPorTexto(arrayDeEventos) {
+    let datosIngresadosEnElBuscador = buscador.value;
+    let arregloFiltrado = arrayDeEventos.filter(arrayDeEventos => arrayDeEventos.name.toLowerCase().includes(datosIngresadosEnElBuscador.trim().toLowerCase()))
+    if (!arregloFiltrado.length) {
+        arregloFiltrado = arrayDeEventos
+    }
+    console.log(arregloFiltrado);
+    return arregloFiltrado
+}
+
+
+
+
 
 
 
@@ -170,7 +196,12 @@ function filtrarCategoriasClickeadas(arrayDeEventos) {
     return arregloFiltrados
 }
 
+function filtrarPorCategoriasYTexto(arrayDeEventos){
+    let filtro1 = filtrarCategoriasClickeadas (arrayDeEventos)
+    let filtro2 = filtrarPorTexto(filtro1)
+    crearEventos(filtro2)
 
+}
 // EVENTOS Y FORMULARIO
 
 // let datosIngresadosEnElFormularioNombres = []
