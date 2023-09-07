@@ -1,6 +1,4 @@
 
-
-
 // VARIABLES PARA FILTRO DE EVENTOS Y DATE
 
 let fechaActual = new Date(data.currentDate);
@@ -119,9 +117,6 @@ function createCategoryCards(categoriasRepetidasEliminadas) {
     cardsDataCategories.innerHTML = tarjetasCategorias;
 }
 
-
-
-
 // FUNCION PARA DETAILS TARJETA
 
 
@@ -134,10 +129,11 @@ function crearTarjetaDetalles(event) {
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                    <h5 class="card-title">${event.name}</h5>
-                    <p class="card-text">${event.date}</p>
-                    <p class="card-text">${event.category}</p>
-                    <p class="card-text">${event.place}</p>
+                    <h3 class="card-title">${event.name}</h5>
+                    <p class="card-text">Date: ${event.date}</p>
+                    <p class="card-text">Category: ${event.category}</p>
+                    <p class="card-text">Place: ${event.place}</p>
+                    <p class="card-text">Price: ${event.price}</p>
                     </div>
 
                     </div>
@@ -149,16 +145,7 @@ function crearTarjetaDetalles(event) {
 
 }
 
-
-
-
-
-
 // EVENTOS
-
-
-
-
 
 
 function filtrarPorTexto(arrayDeEventos) {
@@ -166,16 +153,11 @@ function filtrarPorTexto(arrayDeEventos) {
     let arregloFiltrado = arrayDeEventos.filter(arrayDeEventos => arrayDeEventos.name.toLowerCase().includes(datosIngresadosEnElBuscador.trim().toLowerCase()))
     if (!arregloFiltrado.length) {
         arregloFiltrado = arrayDeEventos
+       
     }
     console.log(arregloFiltrado);
     return arregloFiltrado
 }
-
-
-
-
-
-
 
 function filtrarCategoriasClickeadas(arrayDeEventos) {
     let checkboxes = document.querySelectorAll('input[type="checkbox"]')
@@ -191,6 +173,7 @@ function filtrarCategoriasClickeadas(arrayDeEventos) {
     })
     if (!arregloFiltrados.length) {
         arregloFiltrados = arrayDeEventos
+        
     }
     console.log(arregloFiltrados);
     return arregloFiltrados
