@@ -76,6 +76,20 @@ function crearTarjetaDetalles(event) {
 }
 
 // FUNCION PARA ESTADISTICAS
+
+let maximoPorcentajeDeAsistencia = 0
+let nombreMaxAsistencia = ""
+
+let minimoPorcentajeDeAsistencia = 100
+let nombreMinAsistencia = ""
+
+let gananciasCategoria = 0;
+let asistenciaTotal = 0;
+let capacidadTotal = 0;
+
+let eventosProximos = {}
+let eventosPasados = {}
+
 function crearTablaEstadisticas() {
     let contenedorStats = document.getElementById("tableStats");
     let tablaEstadisticas = `
@@ -89,8 +103,8 @@ function crearTablaEstadisticas() {
       <td class="table-secondary" >Events with larger capacity</td>
     </tr>
     <tr>
-      <td>*</td>
-      <td>*</td>
+      <td>${nombreMaxAsistencia}</td>
+      <td>${nombreMinAsistencia}</td>
       <td>*</td>
     </tr>
     <tr class="table-info text-center">
@@ -101,16 +115,7 @@ function crearTablaEstadisticas() {
       <td class="table-secondary">Revenues</td>
       <td class="table-secondary">Percentage of assitance</td>
     </tr>
-    <tr>
-      <td>*</td>
-      <td>*</td>
-      <td>*</td>
-    </tr>
-    <tr>
-      <td>*</td>
-      <td>*</td>
-      <td>*</td>
-    </tr>
+    ${rellenarFilas(eventosProximos)}
     <tr class="table-info text-center">
       <th colspan="3">Past events statistics by category</th>
     </tr>
@@ -119,22 +124,30 @@ function crearTablaEstadisticas() {
       <td class="table-secondary">Revenues</td>
       <td class="table-secondary">Percentage of assitance</td>
     </tr>
-    <tr>
-      <td>*</td>
-      <td>*</td>
-      <td>*</td>
-    </tr>
-    <tr>
-      <td>*</td>
-      <td>*</td>
-      <td>*</td>
-    </tr>
+    ${rellenarFilas(eventosPasados)}
   </tbody>
     `
+
+
     contenedorStats.innerHTML = tablaEstadisticas
 }
 
+function rellenarFilas (evento){
+    let html = ''
+    eventsStatistics(evento).forEach((fila) => {
+        html += `
+        <tr >               
+          <td>${fila.category}</td>
+          <td>$${fila.revenues.toLocaleString("en-US")}</td>
+          <td>${fila.attendance}%</td>
+        </tr>  
+        `
+    }
+    
+    )
+    return html;
 
+}
 // FUNCIONES FILTRO
 
 
@@ -176,6 +189,44 @@ function filtrarPorCategoriasYTexto(arrayDeEventos) {
 
 }
 
+function eventsStatistics(events) {
+    let categories = new Set(events.map((event) => event.category));
+    let categoriesStatistics = [];
+  
+    categories.forEach((category) => {
+      let eventOfThisCategory = events.filter(
+        (event) => category == event.category
+      );
+      console.log(eventOfThisCategory);
+  
+      let revenues = eventOfThisCategory.reduce(
+        (acum, event) =>
+          acum + event.price * (event.estimate || event.assistance),
+        0
+      );
+      let attendance = eventOfThisCategory.reduce(
+        (acum, event) =>
+          acum +
+          (((event.assistance||  event.estimate) / event.capacity) * 100) /
+            eventOfThisCategory.length,
+        0
+      );
+  
+        //   //Condition to avoid whole numbers to decimals
+        //   if (!Number.isInteger(attendance)) {
+        //     attendance = attendance.toFixed(2);
+        //   }
+
+      categoriesStatistics.push({
+        category,
+        revenues,
+        attendance,
+      });
+    });
+    return categoriesStatistics;
+    // console.log(categoriesStatistics);
+  }
+
 // FUNCION API
 
 function getData(datosEventosAPI) {
@@ -188,49 +239,17 @@ function getData(datosEventosAPI) {
 
             console.log(data);
 
-            // CALCULOS Y SUS VARIABLES
-            const asistenciaDefinida = evento.filter(evento => typeof evento.assistance === 'number'
-            )
-            console.log(asistenciaDefinida);
-
-            const asistencias = asistenciaDefinida.map(evento => evento.assistance);
-            console.log(asistencias);
-
-            const capacidad = evento.map(evento => evento.capacity)
-            console.log(capacidad);
-
-
-            // Obtener las categorías únicas presentes en los eventos con asistencia definida
-            const categoriasUnicas = [new Set(asistenciaDefinida.map(evento => evento.category))];
-
-            // Objeto para almacenar los porcentajes de asistencia promedio por categoría
-            const porcentajesAsistenciaPorCategoria = {};
-
-            // Calcular el porcentaje de asistencia promedio para cada categoría
-            categoriasUnicas.forEach(categoria => {
-                const eventosCategoria = asistenciaDefinida.filter(evento => evento.category === categoria);
-
-                const sumatoriaPorcentajes = eventosCategoria.reduce((sum, evento) => {
-                    return sum + (evento.assistance / evento.capacity) * 100;
-                }, 0);
-
-                const porcentajePromedio = sumatoriaPorcentajes / eventosCategoria.length;
-
-                porcentajesAsistenciaPorCategoria[categoria] = porcentajePromedio;
-            });
-
-            console.log('Porcentaje de asistencia promedio por categoría:', porcentajesAsistenciaPorCategoria);
-
             // VARIABLES CLASIFICACION EVENTOS
 
             let fechaActual = new Date(data.currentDate);
 
-            const eventosProximos = evento.filter(evento => {
+            eventosProximos = evento.filter(evento => {
                 const eventDate = new Date(evento.date);
                 return eventDate >= fechaActual;
+
             });
 
-            const eventosPasados = evento.filter(evento => {
+            eventosPasados = evento.filter(evento => {
                 const eventDate = new Date(evento.date);
                 return eventDate < fechaActual;
             });
@@ -247,6 +266,44 @@ function getData(datosEventosAPI) {
                     categoriasRepetidasEliminadas.push(elemento)
                 }
             });
+
+
+            // BUCLES PARA ESTADISTICAS - TABLA
+
+            for (even of evento) {
+                if (even.capacity != null && even.assistance != null) {
+                    let porcentaje = (even.assistance * 100) / even.capacity
+                    if (porcentaje > maximoPorcentajeDeAsistencia) {
+                        maximoPorcentajeDeAsistencia = porcentaje
+                        nombreMaxAsistencia = even.name
+                    }
+                }
+
+            }
+            console.log(nombreMaxAsistencia);
+            console.log(maximoPorcentajeDeAsistencia);
+
+            for (even of evento) {
+                if (even.capacity != null && even.assistance != null) {
+                    let porcentaje = (even.assistance * 100) / even.capacity
+                    if (porcentaje < minimoPorcentajeDeAsistencia) {
+                        minimoPorcentajeDeAsistencia = porcentaje
+                        nombreMinAsistencia = even.name
+                    }
+                }
+
+            }
+
+            console.log(nombreMinAsistencia);
+            console.log(minimoPorcentajeDeAsistencia);
+
+
+            // calculaEventos(data)
+            // console.log(calculaEventos);
+
+            //
+            
+
 
             // CONDICION DE CARD EVENTOS SEGUN PAGINA
             const buscador = document.getElementById("buscador");
@@ -294,9 +351,53 @@ function getData(datosEventosAPI) {
             } else if (document.title === "Stats") {
                 crearTablaEstadisticas()
             }
+
+
+
         })
         .catch(error => console.log(error))
 }
+
+
+// function calculaEventos(eventos) {
+//     const filtroDeEventos = eventosProximos
+//     const eventosPorCategoria = agruparLosEventosPorCategoria(filtroDeEventos)
+//     const categoriaEstadisticas = []
+//     let ganancias
+
+//     for (const categoria in eventosPorCategoria) {
+//         let eventos = eventosPorCategoria[categoria]
+//         ganancias = eventos.reduce((total, evento) => {
+//             let asistencia = evento.assistance ||0
+//             let precio = evento.price
+//             return total + asistencia * precio
+//         }, 0)
+//         console.log(ganancias);
+//     }
+
+//     let totalPorcentajeAsistencia = eventos.reduce((total, evento)=>{
+//         let asistencia = evento.assistance || 0
+//         let capacidad = evento.capacity
+//         return total + (asistencia/capacidad)*100
+//     },0)
+
+//     let total2 = totalPorcentajeAsistencia/eventos.length
+//     categoriaEstadisticas.push({categoria,ganancias,total2})
+
+//     console.log(categoriaEstadisticas);
+
+// }
+
+// function agruparLosEventosPorCategoria(events) {
+//     const eventsByCategory = {};
+//     events.forEach(event => {
+//       if (!eventsByCategory[event.category]) {
+//         eventsByCategory[event.category] = [];
+//       }
+//       eventsByCategory[event.category].push(event);
+//     });
+//     return eventsByCategory;
+//   }
 
 // EVENTOS Y FORMULARIO
 
