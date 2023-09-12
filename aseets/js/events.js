@@ -79,6 +79,9 @@ function crearTarjetaDetalles(event) {
 
 let maximoPorcentajeDeAsistencia = 0
 let nombreMaxAsistencia = ""
+let eventoMayorCapacidad = null;
+let mayorCapacidad = 0;
+
 
 let minimoPorcentajeDeAsistencia = 100
 let nombreMinAsistencia = ""
@@ -105,7 +108,7 @@ function crearTablaEstadisticas() {
     <tr>
       <td>${nombreMaxAsistencia}</td>
       <td>${nombreMinAsistencia}</td>
-      <td>*</td>
+      <td>${eventoMayorCapacidad}</td>
     </tr>
     <tr class="table-info text-center">
       <th colspan="3">Upcoming events statistics by category</th>
@@ -132,7 +135,7 @@ function crearTablaEstadisticas() {
     contenedorStats.innerHTML = tablaEstadisticas
 }
 
-function rellenarFilas (evento){
+function rellenarFilas(evento) {
     let html = ''
     eventsStatistics(evento).forEach((fila) => {
         html += `
@@ -143,7 +146,7 @@ function rellenarFilas (evento){
         </tr>  
         `
     }
-    
+
     )
     return html;
 
@@ -192,40 +195,43 @@ function filtrarPorCategoriasYTexto(arrayDeEventos) {
 function eventsStatistics(events) {
     let categories = new Set(events.map((event) => event.category));
     let categoriesStatistics = [];
-  
+
     categories.forEach((category) => {
-      let eventOfThisCategory = events.filter(
-        (event) => category == event.category
-      );
-      console.log(eventOfThisCategory);
-  
-      let revenues = eventOfThisCategory.reduce(
-        (acum, event) =>
-          acum + event.price * (event.estimate || event.assistance),
-        0
-      );
-      let attendance = eventOfThisCategory.reduce(
-        (acum, event) =>
-          acum +
-          (((event.assistance||  event.estimate) / event.capacity) * 100) /
-            eventOfThisCategory.length,
-        0
-      );
-  
+        let eventOfThisCategory = events.filter(
+            (event) => category == event.category
+        );
+        // console.log(eventOfThisCategory);
+
+        let revenues = eventOfThisCategory.reduce(
+            (acum, event) =>
+                acum + event.price * (event.estimate || event.assistance),
+            0
+        );
+        let attendance = eventOfThisCategory.reduce(
+            (acum, event) =>
+                acum +
+                (((event.assistance || event.estimate) / event.capacity) * 100) /
+                eventOfThisCategory.length,
+            0
+        );
+
         //   //Condition to avoid whole numbers to decimals
         //   if (!Number.isInteger(attendance)) {
         //     attendance = attendance.toFixed(2);
         //   }
 
-      categoriesStatistics.push({
-        category,
-        revenues,
-        attendance,
-      });
+        categoriesStatistics.push({
+            category,
+            revenues,
+            attendance,
+        });
     });
     return categoriesStatistics;
     // console.log(categoriesStatistics);
-  }
+}
+
+
+
 
 // FUNCION API
 
@@ -280,8 +286,8 @@ function getData(datosEventosAPI) {
                 }
 
             }
-            console.log(nombreMaxAsistencia);
-            console.log(maximoPorcentajeDeAsistencia);
+            // console.log(nombreMaxAsistencia);
+            // console.log(maximoPorcentajeDeAsistencia);
 
             for (even of evento) {
                 if (even.capacity != null && even.assistance != null) {
@@ -294,15 +300,24 @@ function getData(datosEventosAPI) {
 
             }
 
+            for (let even of evento) {
+                if (even.capacity > mayorCapacidad) {
+                    mayorCapacidad = even.capacity;
+                    eventoMayorCapacidad = even.name;
+                    // console.log(eventoMayorCapacidad);
+                }
+            }
+
+
+
             console.log(nombreMinAsistencia);
             console.log(minimoPorcentajeDeAsistencia);
 
+          
 
-            // calculaEventos(data)
-            // console.log(calculaEventos);
 
             //
-            
+
 
 
             // CONDICION DE CARD EVENTOS SEGUN PAGINA
